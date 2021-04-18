@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script lang="Javascript">
+
+
+                 function isNotEmpty(field){
+                    var inputStr = field.value
+                    var fieldname = field.name
+                    if (inputStr == "" || inputStr == null ) {
+                      alert("This field : "+ fieldname + " requires an entry.")
+                      field.focus()
+                      field.select()
+                      return false
+                    }
+                    return true
+                  }
+
+
+                  function isNumber(field){
+                    if (isNotEmpty(field)){
+                      	var inputStr = field.value
+                        for (var i = 0; i < inputStr.length; i++){
+            			      var oneChar=inputStr.substring(i,i+1)
+            			if (oneChar < "0" || oneChar > "9"){
+            				alert("Numbers only.")
+            				field.focus()
+            				field.select()
+            				return false
+            			}
+            		}
+            		return true
+            	}
+            	return false
+            }
+
+            function checkNameFormat(field){
+
+              var nameFormat = /^[A-Za-z]+$/
+              if(isNotEmpty(field)){
+                if(field.value.match(nameFormat)){
+                  return true
+                }
+                else{
+                  alert("Please input letters only")
+                    field.focus()
+            				field.select()
+                    return false
+                }
+                return true
+              }
+
+              return false
+            }
+
+            function checkPhoneFormat(field){
+              var phoneNumFormat = /^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$/
+              if ( isNotEmpty(field)){
+                if(field.value.match(phoneNumFormat)){
+                  return true
+                }
+                else{
+                  alert("Phone Number not valid !!!")
+                  field.focus()
+            			field.select()
+                  return false
+                }
+                return true
+              }
+              return false
+            }
+
+
+            function checkDay(field){
+
+              day = field.value
+             if(isNumber(field)){
+
+              if(day > 0 && day <= 31){
+                return true
+              }
+
+              else {
+                alert("Please enter a valid day 1-31")
+                  field.focus()
+            			field.select()
+                  return false
+              }
+              return true
+             }
+             return false
+            }
+
+
+            function checkMonth(field){
+
+              month = field.value
+             if(isNumber(field)){
+
+              if(month > 0 && month <= 12){
+                return true
+              }
+
+              else {
+                alert("Please enter a valid month 1-12")
+                field.focus()
+            			field.select()
+                  return false
+              }
+              return true
+             }
+             return false
+            }
+
+            function checkYear(field){
+
+              year = field.value
+             if(isNumber(field)){
+
+              if(year >= 1900 && year <= 2021){
+                return true
+              }
+
+              else {
+                alert("Please enter a valid year")
+                field.focus()
+            			field.select()
+                  return false
+              }
+              return true
+             }
+             return false
+            }
+
+
+
+
+
+            function validate(form) {
+      	if  (checkDay(form.day) && checkMonth(form.month) && checkYear(form.year) && checkNameFormat(form.firstname) && checkNameFormat(form.lastname) && checkPhoneFormat(form.phonenum))
+      		return true
+      	else
+      	  return false
+      }
+    </script>
+  </head>
+  <body>
+    <form
+      method="POST"
+      action="http://www.it.murdoch.edu.au/cgi-bin/reply1.pl "
+      onsubmit="return validate(this)"
+    >
+      <p>Please enter the following details</p>
+
+      <p><strong>Username:</strong></p>
+
+      <p>
+        Firstname
+        <input name="firstname" type="text" size="20" />
+      </p>
+      <p>
+        Lastname
+        <input name="lastname" type="text" size="20" />
+      </p>
+
+      <p>
+        <strong>Phone Number</strong>[include prefix code]
+        <input name="phonenum" type="text" size="10" />
+      </p>
+
+      <p><strong>Date of birth:</strong></p>
+      <p>
+        Day(1-31):
+        <input
+          name="day"
+          type="text"
+          size="10"
+          value="1"
+          onChange="checkDay(this)"
+        />
+      </p>
+
+      <p>
+        Month(1-12):
+        <input
+          name="month"
+          type="text"
+          size="10"
+          value="1"
+          onChange="checkMonth(this)"
+        />
+      </p>
+
+      <p>
+        Year:
+        <input
+          name="year"
+          type="text"
+          size="10"
+          value="2000"
+          onChange="checkYear(this)"
+        />
+      </p>
+
+      Favourite pastime:
+      <select name="partime">
+        <option>Surfing the Web</option>
+        <option>Playing Sport</option>
+        <option>Listening to music</option>
+        <option>Watching Tv</option>
+        <option>Playing games</option>
+        <option>Community Service</option>
+        <option>DayDreaming</option>
+        <option>Reading</option>
+        <option>Meditation</option>
+      </select>
+      <p>
+        <input type="submit" />
+        <input type="reset" />
+      </p>
+    </form>
+  </body>
+</html>
